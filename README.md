@@ -18,8 +18,6 @@
   <h3>Siga os passos abaixo para executar a aplicação localmente:</h3>
 
   ```bash
-  # Certifique-se de que todas as variáveis de ambiente possuem as chaves das APIs ativas.
-
   $ Clicar duas vezes no arquivo [n° exercicio].html para abrir no navegador.
 
   # Ou
