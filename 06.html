@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício 06</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <header>
+        <h1>Exercício 06:</h1>
+      </header>
+
+      <main>
+        <h2>Adaptar o exercício de validação de CPF da lista 01 em um formato Orientado a Objetos e
+          incluindo validação por RegEX.
+        </h2>
+
+        <div class="form-control">
+          <label for="name">Nome:</label>
+          <input type="text" id="name">
+        </div>
+
+        <div class="form-control">
+          <label for="address">Endereço:</label>
+          <input type="text" id="address">
+        </div>
+
+        <div class="form-control">
+          <label for="cpf">CPF:</label>
+          <input type="text" id="cpf" placeholder="000.000.000-00">
+        </div>
+
+        <div class="form-control">
+          <label for="postalCode">CEP:</label>
+          <input type="text" id="postalCode" placeholder="00000-000">
+        </div>
+
+        <button type="submit" onclick="sendForm()">Enviar</button>
+      </main>
+    </div>
+  </div>
+
+  <script src="06.client.js"></script>
+
+  <script>
+    function cpfValidation(cpf) {
+      const numbers = cpf.split('').map(Number);
+      const sum1 = numbers.slice(0, 9).reduce((acc, value, index) => acc + value * (10 - index), 0) % 11;
+      const verif1 = (sum1 < 2) ? 0 : 11 - sum1;
+
+      if (numbers[9] !== verif1) {
+        return false;
+      }
+
+      const sum2 = numbers.slice(0, 10).reduce((acc, value, index) => acc + value * (11 - index), 0) % 11;
+      const verif2 = (sum2 < 2) ? 0 : 11 - sum2;
+
+      return numbers[10] === verif2;
+    }
+
+    function sendForm() {
+      const name = document.getElementById('name').value;
+      console.log("🚀 ~ sendForm ~ name:", name)
+
+      const address = document.getElementById('address').value;
+      console.log("🚀 ~ sendForm ~ address:", address)
+
+      const cpf = document.getElementById('cpf').value;
+      const cpfFormatted = cpf.replace(/[^\d]/g, '');
+
+      if (!cpfValidation(cpfFormatted)) {
+        alert("CPF inválido!");
+      }
+  
+      const postalCode = document.getElementById('postalCode').value;
+      console.log("🚀 ~ sendForm ~ postalCode:", postalCode)
+
+      const client = new Client(name, address, cpf, postalCode)
+
+      client.resume()
+    }
+  </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício 04</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <header>
+        <h1>Exercício 04:</h1>
+      </header>
+
+      <main>
+        <h2>Criar um programa que exiba o resultado das operações soma, subtração, multiplicação,
+          radiciação e fatorial com o uso de objetos e métodos. Para o cálculo do fatorial, procure usar
+          métodos recursivos.
+        </h2>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    var calculator = {
+      sum: function (a, b) {
+        return a + b;
+      },
+
+      subtraction: function (a, b) {
+        return a - b;
+      },
+
+      multiplication: function (a, b) {
+        return a * b;
+      },
+
+      square: function (a) {
+        return Math.sqrt(a);
+      },
+
+      factorial: function (n) {
+        if (n === 0 || n === 1) {
+          return 1;
+        } else {
+          return n * calculator.factorial(n - 1);
+        }
+      }
+    };
+
+    var number1 = 5;
+    var number2 = 3;
+
+    console.log("Soma:", calculator.sum(number1, number2));
+    console.log("Subtração:", calculator.subtraction(number1, number2));
+    console.log("Multiplicação:", calculator.multiplication(number1, number2));
+    console.log("Raiz Quadrada de", number1, ":", calculator.square(number1));
+    console.log("Fatorial de", number2, ":", calculator.factorial(number2));
+  </script>
+</body>
+
+</html>

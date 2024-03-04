@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício 01</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <header>
+        <h1>Exercício 01:</h1>
+      </header>
+
+      <main>
+        <h2>Criar um programa de cadastro de Clientes com nome, endereço, CEP e CPF. Utilizar os
+          recursos de Classes e objetos. Encapsular todos os atributos para que possam ser alterados e
+          lidos apenas utilizando métodos de acesso. Para cada cliente informado, exibir os dados na tela
+          ao final da inserção de dados. Realizar a validação dos dados usando RegEX.
+        </h2>
+
+        <div class="form-control">
+          <label for="name">Nome:</label>
+          <input type="text" id="name">
+        </div>
+
+        <div class="form-control">
+          <label for="address">Endereço:</label>
+          <input type="text" id="address">
+        </div>
+
+        <div class="form-control">
+          <label for="cpf">CPF:</label>
+          <input type="text" id="cpf" placeholder="000.000.000-00">
+        </div>
+
+        <div class="form-control">
+          <label for="postalCode">CEP:</label>
+          <input type="text" id="postalCode" placeholder="00000-000">
+        </div>
+
+        <button type="button" onclick="sendForm()">Enviar</button>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    function cpfValidation(cpf) {
+      const numbers = cpf.split('').map(Number);
+      const sum1 = numbers.slice(0, 9).reduce((acc, value, index) => acc + value * (10 - index), 0) % 11;
+      const verif1 = (sum1 < 2) ? 0 : 11 - sum1;
+
+      if (numbers[9] !== verif1) {
+        return false;
+      }
+
+      const sum2 = numbers.slice(0, 10).reduce((acc, value, index) => acc + value * (11 - index), 0) % 11;
+      const verif2 = (sum2 < 2) ? 0 : 11 - sum2;
+
+      return numbers[10] === verif2;
+    }
+
+    class Client {
+      constructor(name, address, cpf, postalCode) {
+        this.setName(name);
+        this.setAddress(address);
+        this.setCpf(cpf);
+        this.setPostalCode(postalCode);
+      }
+
+      getName() {
+        return this.name;
+      }
+
+      setName(name) {
+        this.name = name;
+      }
+
+      getAddress() {
+        return this.address;
+      }
+
+      setAddress(address) {
+        this.address = address;
+      }
+
+      getCpf() {
+        return this.cpf;
+      }
+
+      setCpf(cpf) {
+        const cpfFormatted = cpf.replace(/[^\d]/g, '');
+
+        if (!cpfValidation(cpfFormatted)) {
+          alert("CPF inválido!");
+        }
+
+        if (/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) {
+          this.cpf = cpf;
+        } else {
+          alert("O formato do CPF é inválido!")
+        }
+
+      }
+
+      getPostalCode() {
+        return this.postalCode;
+      }
+
+      setPostalCode(postalCode) {
+        if (/^\d{8}$|^\d{5}-\d{3}$/.test(postalCode)) {
+          this.postalCode = postalCode;
+        } else {
+          console.error("CEP inválido");
+        }
+
+      }
+
+      resume() {
+        console.log('Nome: ', this.getName())
+        console.log('Endereço: ', this.getAddress())
+        console.log('CPF: ', this.getCpf())
+        console.log('CEP: ', this.getPostalCode())
+      }
+    }
+
+    function sendForm() {
+      const name = document.getElementById('name').value;
+      console.log("🚀 ~ sendForm ~ name:", name)
+
+      const address = document.getElementById('address').value;
+      console.log("🚀 ~ sendForm ~ address:", address)
+
+      const cpf = document.getElementById('cpf').value;
+      console.log("🚀 ~ sendForm ~ cpfFormatted:", cpf)
+
+      const postalCode = document.getElementById('postalCode').value;
+      console.log("🚀 ~ sendForm ~ postalCode:", postalCode)
+
+      const client = new Client(name, address, cpf, postalCode)
+
+      client.resume()
+    }
+  </script>
+</body>
+
+</html>

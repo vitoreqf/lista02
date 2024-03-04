@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício 05</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <header>
+        <h1>Exercício 05:</h1>
+      </header>
+
+      <main>
+        <h2>Criar um programa que receba duas datas e exiba o número de dias de diferença entre elas.
+          Resolver utilizando Classes e objetos, passando as datas como parâmetros. Verificar na
+          linguagem escolhida se há um método, função ou API específica para datas.
+        </h2>
+
+        <div class="form-control">
+          <label for="date1">Data 1</label>
+          <input type="date" id="date1">
+        </div>
+
+        <div class="form-control">
+          <label for="date2">Data 2</label>
+          <input type="date" id="date2">
+        </div>
+
+        <button type="button" onclick="sendForm()">Enviar</button>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    class DifferenceDays {
+      constructor(date1, date2) {
+        this.date1 = new Date(date1);
+        this.date2 = new Date(date2);
+      }
+
+      calculateDifferenceDays() {
+        const differenceSeconds = Math.abs(this.date2 - this.date1);
+        const differenceDays = Math.ceil(differenceSeconds / (1000 * 60 * 60 * 24));
+        
+        return differenceDays;
+      }
+    }
+
+    function sendForm() {
+      const date1 = document.getElementById('date1').value;
+      console.log("🚀 ~ sendForm ~ name:", date1)
+
+      const date2 = document.getElementById('date2').value;
+      console.log("🚀 ~ sendForm ~ address:", date2)
+
+      const calculator = new DifferenceDays(date1, date2);
+      const differenceDays = calculator.calculateDifferenceDays();
+
+      console.log('Dias de diferença entre: ', date1, ' e ', date2, ':', differenceDays)
+    }
+  </script>
+</body>
+
+</html>
